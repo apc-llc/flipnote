@@ -35,10 +35,6 @@
 }
 svg {
 	cursor: pointer;
-	display: block;
-    margin: auto;
-    width: 100%;
-	vertical-align: middle;
 }
 .flip {
 	-webkit-perspective: 300;
@@ -80,7 +76,7 @@ svg {
 	cursor: pointer;
 }
 .flip .item .back {
-	-webkit-transform: rotatey(-180deg);
+	-webkit-transform: rotatey(180deg);
 	background-color: white;
 	color: black;
 	cursor: pointer;
@@ -140,5 +136,4 @@ textarea {
 .record-selector-add {
 	left:-5vh;
 	position:relative;
-	z-index: 5;
-}
+

@@ -3,6 +3,7 @@
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<link rel="stylesheet" href="flipnote.css">
 	<script src="jquery.tools.min.js"></script>
+	<script src="jquery.mobile-1.4.5.min.js"></script>
 </head>
 <body class="body">
 <div class="header">
@@ -69,25 +70,27 @@
 	</div>
 </div>
 <script language="javascript">
-	$('.flip').click(function () {
-		if ($(this).find('.item').hasClass('flipped'))
-		{
-			$(this).find('.item').removeClass('flipped');
-			$(this).find('.input-front').focus();
+	var $timeout = Math.floor(Date.now() / 1000);
+
+	$('.flip').swipeleft(function ()
+	{
+		var $newTimeout = Math.floor(Date.now() / 1000);
+
+		if ($newTimeout > $timeout + 1)
+		{	
+			if ($(this).find('.item').hasClass('flipped'))
+			{
+				$(this).find('.item').removeClass('flipped');
+				$(this).find('.input-front').focus();
+			}
+			else
+			{
+				$(this).find('.item').addClass('flipped');
+				$(this).find('.input-back').focus();
+			}
+
+			$timeout = Math.floor(Date.now() / 1000);
 		}
-		else
-		{
-			$(this).find('.item').addClass('flipped');
-			$(this).find('.input-back').focus();
-		}
-	});
-	$('.input-front').blur(function () {
-		if (! $('.flip').find('.item').hasClass('flipped'))
-			$(this).focus();
-	});
-	$('.input-back').blur(function () {
-		if ($('.flip').find('.item').hasClass('flipped'))
-			$(this).focus();
 	});
 </script>
 </body>
