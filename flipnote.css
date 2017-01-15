@@ -1,3 +1,19 @@
+.header {
+    height: 50px;
+    background: #4285f4;
+} 
+.file-selector {
+    width: 50px;
+    float: left;
+}
+.svg-container {
+	width: 30px;
+	height: 30px;
+	margin: 10px;
+}
+.filename {
+    overflow: hidden;
+}
 .gb_Hd {
     border: 1px solid rgba(0,0,0,0);
     -webkit-border-radius: 4px;
@@ -12,19 +28,6 @@
     margin-right: 48px;
     display: block;
 }
-.header {
-	display: inline-block;
-	background-color: #4285f4;
-	fill: white;
-}
-.file-selector {
-	float:left;
-	width: 30px;
-	height: 30px;
-	display: inline-block;
-	vertical-align: top;
-	padding: 10px;
-}
 svg {
 	cursor: pointer;
 	display: block;
@@ -32,18 +35,10 @@ svg {
     width: 100%;
 	vertical-align: middle;
 }
-.filename {
-	float:right;
-	width: 350px;
-	height: 100%;
-	top:0;
-	display: inline-block;
-	vertical-align: top;
-}
 .flip {
 	-webkit-perspective: 300;
-	width: 400px;
-	height: 200px;  
+	width: 100%;
+	height: 200px; 
 }
 .flip .item.flipped {
 	-webkit-transform: rotatey(-180deg);
@@ -56,6 +51,9 @@ svg {
 	border-style: solid;
 	border-color: #bbb;
 	border-width: 1px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 }
 .flip .item .face {
 	width: 100%;
@@ -100,34 +98,27 @@ textarea {
     width: 100%;
 }
 .footer {
-	display: inline-block;
-	background-color: #4285f4;
-	fill: white;
+    height: 50px;
+    background: #4285f4;
 }
 .record-selector {
-	width: 30px;
-	height: 30px;
-	display: inline-block;
-	vertical-align: top;
-	padding: 10px;
-}
-.record-selector-prev {
+    width: 50px;
 	float:left;
 }
+.record-selector-prev {
+	position:absolute;
+    left:7px;
+}
 .record-selector-next {
-	float:right;
+	position:absolute;
+    right:7px;
 }
 .record-selector-next svg {
 	-webkit-transform: rotatey(-180deg);
 }
-.record-selector-center {
-	width: 30px;
-	height: 30px;
-	display: inline-block;
-	vertical-align: top;
-	padding: 10px 130px;
-}
 .record-selector-add {
-	float:center;
+	position:absolute;
+    left:50%;
+    overflow: hidden;
 }
 
