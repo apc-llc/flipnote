@@ -1,15 +1,20 @@
+.body {
+	margin:0;
+	height:100vh;
+	overflow:hidden;
+}
 .header {
-    height: 50px;
+    height: 10vh;
     background: #4285f4;
 } 
 .file-selector {
-    width: 50px;
+    width: 10vh;
     float: left;
 }
 .svg-container {
-	width: 30px;
-	height: 30px;
-	margin: 10px;
+	width: 6vh;
+	height: 6vh;
+	margin: 2vh;
 }
 .filename {
     overflow: hidden;
@@ -38,7 +43,9 @@ svg {
 .flip {
 	-webkit-perspective: 300;
 	width: 100%;
-	height: 200px; 
+	height: 80vh;
+	top:10vh;
+	position:absolute; 
 }
 .flip .item.flipped {
 	-webkit-transform: rotatey(-180deg);
@@ -62,7 +69,7 @@ svg {
 	-webkit-backface-visibility: hidden ;
 	z-index: 2;
 	text-align: center;
-	line-height: 200px;
+	line-height: 80vh;
 }
 .flip .item .front {
 	position: absolute;
@@ -94,31 +101,44 @@ textarea {
     left: 0; 
     top: 0; 
     right: 0;
-    bottom: 100px;  /* Actually the height of select and input */
     width: 100%;
+    height: 80vh;
+    font-size: 10vh;
 }
 .footer {
-    height: 50px;
-    background: #4285f4;
+    height: 10vh;
+	bottom:0;
 }
 .record-selector {
-    width: 50px;
+    background: #4285f4;
+    width: 10vh;
 	float:left;
 }
 .record-selector-prev {
+    background: #4285f4;
 	position:absolute;
-    left:7px;
+    left:0px;
+    bottom:0;
+    width:100%;
 }
 .record-selector-next {
+    background: #4285f4;
 	position:absolute;
-    right:7px;
+    right:0px;
+    bottom:0;
 }
 .record-selector-next svg {
 	-webkit-transform: rotatey(-180deg);
 }
-.record-selector-add {
+.record-selector-center {
+    background: #4285f4;
 	position:absolute;
     left:50%;
+    bottom:0;
     overflow: hidden;
 }
-
+.record-selector-add {
+	left:-5vh;
+	position:relative;
+	z-index: 5;
+}
