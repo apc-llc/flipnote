@@ -1,0 +1,133 @@
+.gb_Hd {
+    border: 1px solid rgba(0,0,0,0);
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    max-width: 720px;
+    position: relative;
+    color: red;
+}
+.gb_ee {
+    height: 46px;
+    padding: 0 11px;
+    margin-right: 48px;
+    display: block;
+}
+.header {
+	display: inline-block;
+	background-color: #4285f4;
+	fill: white;
+}
+.file-selector {
+	float:left;
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px;
+}
+svg {
+	cursor: pointer;
+	display: block;
+    margin: auto;
+    width: 100%;
+	vertical-align: middle;
+}
+.filename {
+	float:right;
+	width: 350px;
+	height: 100%;
+	top:0;
+	display: inline-block;
+	vertical-align: top;
+}
+.flip {
+	-webkit-perspective: 300;
+	width: 400px;
+	height: 200px;  
+}
+.flip .item.flipped {
+	-webkit-transform: rotatey(-180deg);
+}
+.flip .item {
+	width: 100%;
+	height: 100%;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition: 0.5s;
+	border-style: solid;
+	border-color: #bbb;
+	border-width: 1px;
+}
+.flip .item .face {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	-webkit-backface-visibility: hidden ;
+	z-index: 2;
+	text-align: center;
+	line-height: 200px;
+}
+.flip .item .front {
+	position: absolute;
+	z-index: 1;
+	background: -webkit-repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
+	background: repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
+	color: white;
+	cursor: pointer;
+}
+.flip .item .back {
+	-webkit-transform: rotatey(-180deg);
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+textarea {
+	background: transparent;
+    border: none;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    white-space: normal;
+	text-align: center;
+	-moz-text-align-last: center; /* Firefox 12+ */
+	text-align-last: center;
+	vertical-align:middle;
+    left: 0; 
+    top: 0; 
+    right: 0;
+    bottom: 100px;  /* Actually the height of select and input */
+    width: 100%;
+}
+.footer {
+	display: inline-block;
+	background-color: #4285f4;
+	fill: white;
+}
+.record-selector {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px;
+}
+.record-selector-prev {
+	float:left;
+}
+.record-selector-next {
+	float:right;
+}
+.record-selector-next svg {
+	-webkit-transform: rotatey(-180deg);
+}
+.record-selector-center {
+	width: 30px;
+	height: 30px;
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px 130px;
+}
+.record-selector-add {
+	float:center;
+}
+
