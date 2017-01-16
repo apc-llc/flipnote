@@ -106,7 +106,6 @@ textarea {
 	bottom:0;
 }
 .record-selector {
-    background: #4285f4;
     width: 10vh;
 	float:left;
 }
@@ -115,7 +114,6 @@ textarea {
 	position:absolute;
     left:0px;
     bottom:0;
-    width:100%;
 }
 .record-selector-next {
     background: #4285f4;
@@ -128,12 +126,23 @@ textarea {
 }
 .record-selector-center {
     background: #4285f4;
+    height: 10vh;
+	float:left;
 	position:absolute;
-    left:50%;
+    left:0;
     bottom:0;
+    width:100%;
     overflow: hidden;
 }
 .record-selector-add {
+	position:absolute;
+    left:50%;
+    bottom:0;
+}
+.svg-container-center {
+	width: 6vh;
+	height: 6vh;
+	margin: 2vh;
 	left:-5vh;
 	position:relative;
-
+}
