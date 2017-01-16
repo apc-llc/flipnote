@@ -1,5 +1,6 @@
 <!doctype html>
 <head>
+	<title>FlipNote: A portable notepad for short two-sided notes</title>
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<link rel="stylesheet" href="flipnote.css">
 	<script src="jquery.tools.min.js"></script>
@@ -23,7 +24,7 @@
 	<div class="item">
 		<div class="face front">
 			<form>
-				<textarea class="input-front" type="text" name="face text" autofocus></textarea>
+				<textarea class="input-front" type="text" name="face text"></textarea>
 			</form>
 		</div>
 		<div class="face back">
@@ -103,12 +104,12 @@
 				if ($(this).find('.item').hasClass('flipped'))
 				{
 					$(this).find('.item').removeClass('flipped');
-					$(this).find('.input-front').focus();
+					$(this).find('.input-front').blur();
 				}
 				else
 				{
 					$(this).find('.item').addClass('flipped');
-					$(this).find('.input-back').focus();
+					$(this).find('.input-back').blur();
 				}
 
 				$timeout = Math.floor(Date.now() / 1000);
@@ -127,12 +128,12 @@
 				if ($(this).find('.item').hasClass('flipped'))
 				{
 					$(this).find('.item').removeClass('flipped');
-					$(this).find('.input-front').focus();
+					$(this).find('.input-front').blur();
 				}
 				else
 				{
 					$(this).find('.item').addClass('flipped');
-					$(this).find('.input-back').focus();
+					$(this).find('.input-back').blur();
 				}
 
 				$timeout = Math.floor(Date.now() / 1000);
