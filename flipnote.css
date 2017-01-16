@@ -1,3 +1,7 @@
+@font-face {
+  font-family: "Caveat";
+  src: url(//caveat.ttf) format("truetype");
+}
 .body {
 	margin:0;
 	height:100vh;
@@ -10,6 +14,12 @@
 .file-selector {
     width: 10vh;
     float: left;
+}
+.logo
+{
+	margin: 2vh 0;
+	font: 5vh Caveat;
+	color: white;
 }
 .svg-container {
 	width: 6vh;
@@ -28,20 +38,6 @@
 }
 .filename {
     overflow: hidden;
-}
-.gb_Hd {
-    border: 1px solid rgba(0,0,0,0);
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
-    max-width: 720px;
-    position: relative;
-    color: red;
-}
-.gb_ee {
-    height: 46px;
-    padding: 0 11px;
-    margin-right: 48px;
-    display: block;
 }
 svg {
 	cursor: pointer;
