@@ -93,24 +93,58 @@
 
 	$('.flip').swipeleft(function ()
 	{
-		var $newTimeout = Math.floor(Date.now() / 1000);
+		if ($(this).find('.item').hasClass('flipped'))
+		{
+		}
+		else
+		{
+			var $newTimeout = Math.floor(Date.now() / 1000);
 
-		if ($newTimeout > $timeout + 1)
-		{	
-			if ($(this).find('.item').hasClass('flipped'))
-			{
-				$(this).find('.item').removeClass('flipped');
-				$(this).find('.input-front').focus();
-			}
-			else
-			{
-				$(this).find('.item').addClass('flipped');
-				$(this).find('.input-back').focus();
-			}
+			if ($newTimeout > $timeout + 1)
+			{	
+				if ($(this).find('.item').hasClass('flipped'))
+				{
+					$(this).find('.item').removeClass('flipped');
+					$(this).find('.input-front').focus();
+				}
+				else
+				{
+					$(this).find('.item').addClass('flipped');
+					$(this).find('.input-back').focus();
+				}
 
-			$timeout = Math.floor(Date.now() / 1000);
+				$timeout = Math.floor(Date.now() / 1000);
+			}
 		}
 	});
+
+	$('.flip').swiperight(function ()
+	{
+		if ($(this).find('.item').hasClass('flipped'))
+		{
+			var $newTimeout = Math.floor(Date.now() / 1000);
+
+			if ($newTimeout > $timeout + 1)
+			{	
+				if ($(this).find('.item').hasClass('flipped'))
+				{
+					$(this).find('.item').removeClass('flipped');
+					$(this).find('.input-front').focus();
+				}
+				else
+				{
+					$(this).find('.item').addClass('flipped');
+					$(this).find('.input-back').focus();
+				}
+
+				$timeout = Math.floor(Date.now() / 1000);
+			}
+		}
+		else
+		{
+		}
+	});
+
 </script>
 </body>
 
