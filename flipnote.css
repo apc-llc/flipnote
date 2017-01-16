@@ -15,6 +15,16 @@
 	width: 6vh;
 	height: 6vh;
 	margin: 2vh;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 0;
+    outline: none;
+}
+.svg-container.menu {
+}
+.svg-container.plus {
+	left:-5vh;
+	position:relative;
 }
 .filename {
     overflow: hidden;
@@ -140,10 +150,4 @@ textarea {
     left:50%;
     bottom:0;
 }
-.svg-container-center {
-	width: 6vh;
-	height: 6vh;
-	margin: 2vh;
-	left:-5vh;
-	position:relative;
-}
+
