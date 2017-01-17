@@ -1,8 +1,5 @@
-// Your Client ID can be retrieved from your project in the Google
-// Developer Console, https://console.developers.google.com
 var CLIENT_ID = '50950290046-8evmug0398geq2q4nmfgrhn1gojt2mj9.apps.googleusercontent.com';
-
-var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+var SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 
 /**
  * Check if current user has authorized this application.
@@ -59,40 +56,6 @@ function handleAuthClick(event) {
  * Load Drive API client library.
  */
 function loadDriveApi() {
-	gapi.client.load('drive', 'v3', listFiles);
+	gapi.client.load('drive', 'v2', syncDrive);
 }
 
-/**
- * Print files.
- */
-function listFiles() {
-	var request = gapi.client.drive.files.list({
-			'pageSize': 10,
-			'fields': "nextPageToken, files(id, name)"
-		});
-
-		request.execute(function(resp) {
-			appendPre('Files:');
-			var files = resp.files;
-			if (files && files.length > 0) {
-				for (var i = 0; i < files.length; i++) {
-					var file = files[i];
-					appendPre(file.name + ' (' + file.id + ')');
-				}
-			} else {
-				appendPre('No files found.');
-			}
-		});
-}
-
-/**
- * Append a pre element to the body containing the given message
- * as its text node.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-	var pre = document.getElementById('output');
-	var textContent = document.createTextNode(message + '\n');
-	pre.appendChild(textContent);
-}
