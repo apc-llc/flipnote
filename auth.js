@@ -13,7 +13,10 @@ function checkAuth() {
 		}, handleAuthResult);
 }
 
+var $page = new Audio('page.mp3');
+
 function flip() {
+	$page.play();	
 	var item = document.getElementById("item");
 	item.className += " flipped";
 }

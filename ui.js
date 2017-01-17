@@ -30,7 +30,9 @@ $('.flip').swipeleft(function ()
 		var $newTimeout = Math.floor(Date.now() / 1000);
 
 		if ($newTimeout > $timeout + 1)
-		{	
+		{
+			$page.play();
+			
 			if ($(this).find('.item').hasClass('flipped'))
 			{
 				$(this).find('.item').removeClass('flipped');
@@ -55,6 +57,8 @@ $('.flip').swiperight(function ()
 
 		if ($newTimeout > $timeout + 1)
 		{	
+			$page.play();
+
 			if ($(this).find('.item').hasClass('flipped'))
 			{
 				$(this).find('.item').removeClass('flipped');
