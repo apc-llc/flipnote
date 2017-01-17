@@ -63,7 +63,9 @@
 	position:absolute; 
 }
 .flip .item.flipped {
+	-ms-transform: rotatey(-180deg);
 	-webkit-transform: rotatey(-180deg);
+	transform: rotatey(-180deg);
 }
 .flip .item {
 	width: 100%;
@@ -92,7 +94,9 @@
 	cursor: pointer;
 }
 .flip .item .back {
+	-ms-transform: rotatey(180deg);
 	-webkit-transform: rotatey(180deg);
+	transform: rotatey(180deg);
 	background-color: white;
 	color: black;
 	cursor: pointer;
@@ -140,7 +144,9 @@ textarea {
     bottom:0;
 }
 .record-selector-next svg {
+	-ms-transform: rotatey(-180deg);
 	-webkit-transform: rotatey(-180deg);
+	transform: rotatey(-180deg);
 }
 .record-selector-center {
     background: #4285f4;
