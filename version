@@ -1,0 +1,3 @@
+#!/bin/sh
+echo "var version = \"$(git rev-parse HEAD)\";" >version.js
+git add version.js
