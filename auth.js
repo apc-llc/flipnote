@@ -29,10 +29,9 @@ function handleAuthResult(authResult) {
 	var onlineDiv = document.getElementById('online-div');
 	if (authResult && !authResult.error) {
 		// Hide auth UI, then load client library.
-		splashDiv.style.background = '#4285f4';
-		onlineDiv.style.display = 'inline';
 		loadDriveApi();
 		setTimeout(flip, 1000);
+		onlineDiv.style.display = 'inline';
 	} else {
 		// Show auth UI, allowing the user to initiate authorization by
 		// clicking authorize button.
