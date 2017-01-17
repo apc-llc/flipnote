@@ -1,0 +1,195 @@
+@font-face {
+  font-family: "Caveat";
+  src: url(caveat.ttf) format("truetype");
+}
+.body {
+    background: #4285f4;
+	margin:0;
+	height:100vh;
+	overflow:hidden;
+}
+.flip-login {
+	-webkit-perspective: 300;
+	width: 100%;
+	height: 100vh;
+	top:0;
+	position:absolute; 
+}
+.flip-login .item.flipped {
+	-webkit-transform: rotatey(-180deg);
+}
+.flip-login .item {
+	width: 100%;
+	height: 100%;
+	-webkit-transform-style: preserve-3d;
+	-webkit-transition: 0.5s;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.flip-login .item .face {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	-webkit-backface-visibility: hidden ;
+	z-index: 2;
+	text-align: center;
+	line-height: 80vh;
+}
+.flip-login .item .front {
+	position: absolute;
+	z-index: 1;
+	background: -webkit-repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
+	background: repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
+	color: white;
+	cursor: pointer;
+}
+.flip-login .item .back {
+	-webkit-transform: rotatey(180deg);
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+.splash {
+	left:0;
+ 	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: white;
+	width: 100%;
+	vertical-align:middle;
+}
+.online {
+	left:0;
+ 	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: #4285f4;
+	display: none;
+	width: 100%;
+	vertical-align:middle;
+
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
+}
+.login {
+	left:0;
+ 	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: #4285f4;
+	display: none;
+	width: 100%;
+	vertical-align:middle;
+
+    -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 2s; /* Firefox < 16 */
+        -ms-animation: fadein 2s; /* Internet Explorer */
+         -o-animation: fadein 2s; /* Opera < 12.1 */
+            animation: fadein 2s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Internet Explorer */
+@-ms-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Opera < 12.1 */
+@-o-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.logo-large
+{
+	top:5vh;
+	position:relative;
+	margin: 0;
+	font: 15vh Caveat;
+	color: white;
+}
+.logo-large.white {
+	color: white;
+}
+.logo-large.blue {
+	color: white;
+	text-shadow: 0px 0px 20px #4285f4;
+}
+.signin-button {
+	left:50%;
+	top:-25vh;
+	position:relative;
+	height:50px;
+	width:240px;
+}
+.signinButtonSvgImageWithFallback {
+	width:18px;
+	height:18px;
+	padding:15px;
+	background-color: #fff;
+}
+.signinButton {
+	left:-120px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.25);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+    transition: background-color .218s,border-color .218s,box-shadow .218s;
+    -webkit-user-select: none;
+    -webkit-appearance: none;
+    background-image: none;
+    color: #262626;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    white-space: nowrap;
+    width: auto;
+}
+.signinButtonBlue .signinButtonContentWrapper {
+    border: 1px solid transparent;
+}
+.signinButtonContents {
+    font-family: Roboto,arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .21px;
+    margin-left: 6px;
+    margin-right: 6px;
+    vertical-align: top;
+    font-size:16px;
+    line-height:48px;
+    top:2px;
+    left:68px;
+    position:absolute;
+    color: #fff;
+}
+.signinButtonIconImage svg {
+	cursor: pointer;
+    position: absolute;
+    left: 16px;
+}
+

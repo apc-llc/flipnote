@@ -1,149 +1,298 @@
 <!doctype html>
 <head>
+	<meta name="google-signin-client_id" content="50950290046-8evmug0398geq2q4nmfgrhn1gojt2mj9.apps.googleusercontent.com">
 	<title>FlipNote: A portable notepad for short two-sided notes</title>
 	<link rel="icon" type="image/x-icon" href="favicon.ico">
 	<link rel="stylesheet" href="flipnote.css">
 	<script src="jquery.tools.min.js"></script>
 	<script src="jquery.mobile-1.4.5.min.js"></script>
+	<link rel="stylesheet" href="login.css">
+	<script type="text/javascript">
+		// Your Client ID can be retrieved from your project in the Google
+		// Developer Console, https://console.developers.google.com
+		var CLIENT_ID = '50950290046-8evmug0398geq2q4nmfgrhn1gojt2mj9.apps.googleusercontent.com';
+
+		var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+
+		/**
+		 * Check if current user has authorized this application.
+		 */
+		function checkAuth() {
+			gapi.auth.authorize(
+				{
+					'client_id': CLIENT_ID,
+					'scope': SCOPES.join(' '),
+					'immediate': true
+				}, handleAuthResult);
+		}
+
+		function flip() {
+			var item = document.getElementById("item");
+			item.className += " flipped";
+		}
+
+		/**
+		 * Handle response from authorization server.
+		 *
+		 * @param {Object} authResult Authorization result.
+		 */
+		function handleAuthResult(authResult) {
+			var splashDiv = document.getElementById('splash-div');		
+			var loginDiv = document.getElementById('login-div');
+			var onlineDiv = document.getElementById('online-div');
+			if (authResult && !authResult.error) {
+				// Hide auth UI, then load client library.
+				splashDiv.style.background = '#4285f4';
+				onlineDiv.style.display = 'inline';
+				loadDriveApi();
+				setTimeout(flip, 1000);
+			} else {
+				// Show auth UI, allowing the user to initiate authorization by
+				// clicking authorize button.
+				loginDiv.style.display = 'inline';
+			}
+		}
+
+		/**
+		 * Initiate auth flow in response to user clicking authorize button.
+		 *
+		 * @param {Event} event Button click event.
+		 */
+		function handleAuthClick(event) {
+			gapi.auth.authorize(
+				{client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+				handleAuthResult);
+			return false;
+		}
+
+		/**
+		 * Load Drive API client library.
+		 */
+		function loadDriveApi() {
+			gapi.client.load('drive', 'v3', listFiles);
+		}
+
+		/**
+		 * Print files.
+		 */
+		function listFiles() {
+			var request = gapi.client.drive.files.list({
+					'pageSize': 10,
+					'fields': "nextPageToken, files(id, name)"
+				});
+
+				request.execute(function(resp) {
+					appendPre('Files:');
+					var files = resp.files;
+					if (files && files.length > 0) {
+						for (var i = 0; i < files.length; i++) {
+							var file = files[i];
+							appendPre(file.name + ' (' + file.id + ')');
+						}
+					} else {
+						appendPre('No files found.');
+					}
+				});
+		}
+
+		/**
+		 * Append a pre element to the body containing the given message
+		 * as its text node.
+		 *
+		 * @param {string} message Text to be placed in pre element.
+		 */
+		function appendPre(message) {
+			var pre = document.getElementById('output');
+			var textContent = document.createTextNode(message + '\n');
+			pre.appendChild(textContent);
+		}
+
+	</script>
+	<script src="https://apis.google.com/js/client.js?onload=checkAuth">
+	</script>
 </head>
 <body class="body">
-<div class="header">
-	<div class="file-selector">
-		<div class="svg-container menu" role="button" tabindex="2">
-			<svg viewBox="0 0 24 24">
-				<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="#fff">
-				</path>
-			</svg>
-		</div>
-	</div>
-	<div class="filename">
-		<div class="logo">Flipnote</div>
-	</div>
-</div>
-<div class="flip">
-	<div class="item">
-		<div class="face front">
-			<form>
-				<textarea class="input-front" type="text" name="face text"></textarea>
-			</form>
+<div class="flip-login">
+	<div class="item" id="item">
+		<div class="face front blue">
+			<div id="splash-div" class="splash">
+				<span class="logo-large blue">FlipNote</span>
+			</div>
+			<div id="online-div" class="online">
+				<span class="logo-large white">FlipNote</span>
+			</div>
+			<div id="login-div" class="login">
+				<span class="logo-large white">FlipNote</span>
+				<!--Button for the user to click to initiate auth sequence -->
+				<div class="signin-button" onclick="handleAuthClick(event)">
+					<div class="signinButton signinButtonBlue">
+						<div class="signinButtonContentWrapper">
+							<div class="signinButtonIcon">
+								<div class="signinButtonSvgImageWithFallback signinButtonIconImage signinButtonIconImage18">
+									<svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" class="signinButtonSvg">
+										<g>
+											<path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z">
+											</path>
+											<path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z">
+											</path>
+											<path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z">
+											</path>
+											<path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z">
+											</path>
+											<path fill="none" d="M0 0h48v48H0z">
+											</path>
+										</g>
+									</svg>
+								</div>
+							</div>
+							<span class="signinButtonContents">
+								<span>Sign in with Google</span>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<div class="face back">
-			<form>
-				<textarea class="input-back" type="text" name="back text"></textarea>
-			</form>
+			<div class="header">
+				<div class="file-selector">
+					<div class="svg-container menu" role="button" tabindex="2">
+						<svg viewBox="0 0 24 24">
+							<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" fill="#fff">
+							</path>
+						</svg>
+					</div>
+				</div>
+				<div class="filename">
+					<div class="logo">Flipnote</div>
+				</div>
+			</div>
+			<div class="flip">
+				<div class="item">
+					<div class="face front">
+						<form>
+							<textarea class="input-front" type="text" name="face text"></textarea>
+						</form>
+					</div>
+					<div class="face back">
+						<form>
+							<textarea class="input-back" type="text" name="back text"></textarea>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="footer">
+				<div class="record-selector-center">
+					<div class="record-selector-add">
+						<div class="svg-container plus" role="button" tabindex="3">
+							<svg viewBox="0 0 24 24">
+								<path d="M4 12L20 12M12 4L12 20z" stroke-width="2" stroke="#fff">
+								</path>
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="record-selector">
+					<div class="record-selector-prev">
+						<div class="svg-container" role="button" tabindex="4">
+							<svg viewBox="0 0 24 24">
+								<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="#fff">
+								</path>
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="record-selector">
+					<div class="record-selector-next">
+						<div class="svg-container" role="button" tabindex="5">
+							<svg viewBox="0 0 24 24">
+								<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="#fff">
+								</path>
+							</svg>
+						</div>
+					</div>
+				</div>
+			</div>
+			<pre id="output"></pre>
 		</div>
 	</div>
 </div>
-<div class="footer">
-	<div class="record-selector-center">
-		<div class="record-selector-add">
-			<div class="svg-container plus" role="button" tabindex="3">
-				<svg viewBox="0 0 24 24">
-					<path d="M4 12L20 12M12 4L12 20z" stroke-width="2" stroke="#fff">
-					</path>
-				</svg>
-			</div>
-		</div>
-	</div>
-	<div class="record-selector">
-		<div class="record-selector-prev">
-			<div class="svg-container" role="button" tabindex="4">
-				<svg viewBox="0 0 24 24">
-					<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="#fff">
-					</path>
-				</svg>
-			</div>
-		</div>
-	</div>
-	<div class="record-selector">
-		<div class="record-selector-next">
-			<div class="svg-container" role="button" tabindex="5">
-				<svg viewBox="0 0 24 24">
-					<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="#fff">
-					</path>
-				</svg>
-			</div>
-		</div>
-	</div>
-</div>
-<script language="javascript">
-
-	$(".svg-container").mousedown(function()
-	{
-		$(this).css("background-color", "#3f75cf");
-	});
-
-	$(".svg-container").mouseup(function()
-	{
-		$(this).css("background-color", "#4285f4");
-	});
-
-	$('.svn-container').on('click', function(e)
-	{
-		e.stopPropagation();
-	});
-	
-	$(document).on('click', function (e)
-	{
-		$(document).find('.svg-container').css("background-color", "#4285f4");		
-	});
-
-	var $timeout = Math.floor(Date.now() / 1000);
-
-	$('.flip').swipeleft(function ()
-	{
-		if ($(this).find('.item').hasClass('flipped'))
+	<script language="javascript">
+		$(".svg-container").mousedown(function()
 		{
-		}
-		else
+			$(this).css("background-color", "#3f75cf");
+		});
+
+		$(".svg-container").mouseup(function()
 		{
-			var $newTimeout = Math.floor(Date.now() / 1000);
+			$(this).css("background-color", "#4285f4");
+		});
 
-			if ($newTimeout > $timeout + 1)
-			{	
-				if ($(this).find('.item').hasClass('flipped'))
-				{
-					$(this).find('.item').removeClass('flipped');
-					$(this).find('.input-front').blur();
-				}
-				else
-				{
-					$(this).find('.item').addClass('flipped');
-					$(this).find('.input-back').blur();
-				}
+		$('.svn-container').on('click', function(e)
+		{
+			e.stopPropagation();
+		});
 
-				$timeout = Math.floor(Date.now() / 1000);
+		$(document).on('click', function (e)
+		{
+			$(document).find('.svg-container').css("background-color", "#4285f4");		
+		});
+
+		var $timeout = Math.floor(Date.now() / 1000);
+
+		$('.flip').swipeleft(function ()
+		{
+			if ($(this).find('.item').hasClass('flipped'))
+			{
 			}
-		}
-	});
+			else
+			{
+				var $newTimeout = Math.floor(Date.now() / 1000);
 
-	$('.flip').swiperight(function ()
-	{
-		if ($(this).find('.item').hasClass('flipped'))
-		{
-			var $newTimeout = Math.floor(Date.now() / 1000);
+				if ($newTimeout > $timeout + 1)
+				{	
+					if ($(this).find('.item').hasClass('flipped'))
+					{
+						$(this).find('.item').removeClass('flipped');
+						$(this).find('.input-front').blur();
+					}
+					else
+					{
+						$(this).find('.item').addClass('flipped');
+						$(this).find('.input-back').blur();
+					}
 
-			if ($newTimeout > $timeout + 1)
-			{	
-				if ($(this).find('.item').hasClass('flipped'))
-				{
-					$(this).find('.item').removeClass('flipped');
-					$(this).find('.input-front').blur();
+					$timeout = Math.floor(Date.now() / 1000);
 				}
-				else
-				{
-					$(this).find('.item').addClass('flipped');
-					$(this).find('.input-back').blur();
-				}
-
-				$timeout = Math.floor(Date.now() / 1000);
 			}
-		}
-		else
-		{
-		}
-	});
+		});
 
-</script>
+		$('.flip').swiperight(function ()
+		{
+			if ($(this).find('.item').hasClass('flipped'))
+			{
+				var $newTimeout = Math.floor(Date.now() / 1000);
+
+				if ($newTimeout > $timeout + 1)
+				{	
+					if ($(this).find('.item').hasClass('flipped'))
+					{
+						$(this).find('.item').removeClass('flipped');
+						$(this).find('.input-front').blur();
+					}
+					else
+					{
+						$(this).find('.item').addClass('flipped');
+						$(this).find('.input-back').blur();
+					}
+
+					$timeout = Math.floor(Date.now() / 1000);
+				}
+			}
+			else
+			{
+			}
+		});
+	</script>
 </body>
 

@@ -1,17 +1,9 @@
-@font-face {
-  font-family: "Caveat";
-  src: url(caveat.ttf) format("truetype");
-}
-.body {
-	margin:0;
-	height:100vh;
-	overflow:hidden;
-}
 .header {
     height: 10vh;
     background: #4285f4;
 } 
 .file-selector {
+	text-align: left;
     width: 10vh;
     float: left;
 }
@@ -29,24 +21,45 @@
 	border-style: solid;
 	border-width: 0;
     outline: none;
+    top:-2vh;
 }
 .svg-container.menu {
 }
-.svg-container.plus {
+.svg-container-plus {
+	width: 6vh;
+	height: 6vh;
+	margin: 2vh;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 0;
+    outline: none;
+    top:-2vh;
 	left:-5vh;
 	position:relative;
 }
 .filename {
+	text-align: left;
     overflow: hidden;
 }
-svg {
+.svg-container svg {
 	cursor: pointer;
+    position: absolute;
+    top: 2vh;
+    left: 2vh;
+    width: 6vh;
 }
 .flip {
 	-webkit-perspective: 300;
 	width: 100%;
 	height: 80vh;
 	top:10vh;
+	position:absolute; 
+}
+.flip-login {
+	-webkit-perspective: 300;
+	width: 100%;
+	height: 100vh;
+	top:0;
 	position:absolute; 
 }
 .flip .item.flipped {
@@ -57,9 +70,6 @@ svg {
 	height: 100%;
 	-webkit-transform-style: preserve-3d;
 	-webkit-transition: 0.5s;
-	border-style: solid;
-	border-color: #bbb;
-	border-width: 1px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -69,13 +79,13 @@ svg {
 	height: 100%;
 	position: absolute;
 	-webkit-backface-visibility: hidden ;
-	z-index: 2;
+	z-index: 4;
 	text-align: center;
 	line-height: 80vh;
 }
 .flip .item .front {
 	position: absolute;
-	z-index: 1;
+	z-index: 3;
 	background: -webkit-repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
 	background: repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
 	color: white;
@@ -104,6 +114,7 @@ textarea {
     top: 0; 
     right: 0;
     width: 100%;
+    height: 80vh;
     max-height: 80vh;
     font-size: 10vh;
     color: #333;
