@@ -147,7 +147,7 @@ textarea {
     height: 10vh;
 	float:left;
 	position:absolute;
-    left:0;
+    left:-5vh;
     bottom:0;
     width:100%;
     overflow: hidden;
