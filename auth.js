@@ -1,3 +1,5 @@
+'use strict';
+
 var CLIENT_ID = '50950290046-8evmug0398geq2q4nmfgrhn1gojt2mj9.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/drive.file'];
 
@@ -58,6 +60,6 @@ function handleAuthClick(event) {
  * Load Drive API client library.
  */
 function loadDriveApi() {
-	gapi.client.load('drive', 'v2', syncDrive);
+	gapi.client.load('drive', 'v2', angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive);
 }
 

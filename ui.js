@@ -1,3 +1,5 @@
+'use strict';
+
 $(".svg-container").mousedown(function()
 {
 	$(this).css("background-color", "#3f75cf");
@@ -44,6 +46,8 @@ $('.flip').swipeleft(function ()
 				$(this).find('.input-back').blur();
 			}
 
+			$(this).find('textarea').blur();
+
 			$timeout = Math.floor(Date.now() / 1000);
 		}
 	}
@@ -69,6 +73,8 @@ $('.flip').swiperight(function ()
 				$(this).find('.item').addClass('flipped');
 				$(this).find('.input-back').blur();
 			}
+
+			$(this).find('textarea').blur();
 
 			$timeout = Math.floor(Date.now() / 1000);
 		}
