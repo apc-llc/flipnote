@@ -90,3 +90,14 @@ $('textarea').each(function () {
 	this.style.height = 'auto';
 	this.style.height = (this.scrollHeight) + 'px';
 });
+
+function saveFrontPage() {
+	pages[currentPageIndex].front = document.getElementById("input-front").value;
+	angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive();
+}
+
+function saveBackPage() {
+	pages[currentPageIndex].back = document.getElementById("input-back").value;
+	angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive();
+}
+

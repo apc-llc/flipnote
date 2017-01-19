@@ -15,14 +15,6 @@ function checkAuth() {
 		}, handleAuthResult);
 }
 
-var $page = new Audio('page.mp3');
-
-function flip() {
-	$page.play();	
-	var item = document.getElementById("item");
-	item.className += " flipped";
-}
-
 /**
  * Handle response from authorization server.
  *
@@ -33,11 +25,11 @@ function handleAuthResult(authResult) {
 	var loginDiv = document.getElementById('login-div');
 	var onlineDiv = document.getElementById('online-div');
 	if (authResult && !authResult.error) {
-		// Hide auth UI, then load client library.
-		loadDriveApi();
-		setTimeout(flip, 1000);
+		// Synchronize with Google Drive and unlock the main screen.
+		syncDrive(unlockUserMode);
 		onlineDiv.style.display = 'inline';
-	} else {
+	}
+	else {
 		// Show auth UI, allowing the user to initiate authorization by
 		// clicking authorize button.
 		loginDiv.style.display = 'inline';
@@ -51,15 +43,30 @@ function handleAuthResult(authResult) {
  */
 function handleAuthClick(event) {
 	gapi.auth.authorize(
-		{client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+		{ client_id: CLIENT_ID, scope: SCOPES, immediate: false },
 		handleAuthResult);
 	return false;
+}
+
+var $page = new Audio('page.mp3');
+
+/**
+ * Unlock the main UI screen.
+ */
+function unlockUserMode() {
+	document.getElementById("input-front").value = pages[currentPageIndex].front;
+	document.getElementById("input-back").value = pages[currentPageIndex].back;
+	$page.play();	
+	var item = document.getElementById("item");
+	item.className += " flipped";
 }
 
 /**
  * Load Drive API client library.
  */
-function loadDriveApi() {
-	gapi.client.load('drive', 'v2', angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive);
+function syncDrive(callback) {
+	gapi.client.load('drive', 'v2').then(function () {
+		angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive(callback);
+	});
 }
 

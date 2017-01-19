@@ -79,14 +79,14 @@
 				<div class="item">
 					<div class="face front">
 						<form>
-							<textarea class="input-front" type="text" name="face text"
-								onchange="angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive()"></textarea>
+							<textarea class="input-front" id="input-front" type="text" name="face text" onchange="saveFrontPage()">
+							</textarea>
 						</form>
 					</div>
 					<div class="face back">
 						<form>
-							<textarea class="input-back" type="text" name="back text"
-								onchange="angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive()"></textarea>
+							<textarea class="input-back" id="input-back" type="text" name="back text" onchange="saveBackPage()">
+							</textarea>
 						</form>
 					</div>
 				</div>

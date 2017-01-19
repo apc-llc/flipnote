@@ -1,5 +1,8 @@
 'use strict';
 
+var currentPageIndex = 0;
+var pages = [ { front : '', back : '' } ];
+
 var dbFile;
 var db = null;
 
@@ -89,10 +92,14 @@ angular.module('flipnote', [ ])
 			var accessToken = gapi.auth.getToken().access_token;
 			var xmlHttp = new XMLHttpRequest();
 			xmlHttp.onreadystatechange = function() { 
-				if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-					return deferred.resolve(xmlHttp.responseText);
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					var buf = xmlHttp.response;
+					var bufView = new Uint8Array(buf);
+					return deferred.resolve(bufView);
+				}
 			}
 			xmlHttp.open("GET", file.result.downloadUrl, true);
+			xmlHttp.responseType = "arraybuffer";
 			xmlHttp.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 			xmlHttp.send(null);
 
@@ -202,6 +209,7 @@ angular.module('flipnote', [ ])
 				var db = new SQL.Database();
 				var sqlstr = "CREATE TABLE flipNoteDefault(pageIndex, isCurrent, contentFront, contentBack);";
 				db.exec(sqlstr);
+				db.run("INSERT INTO flipNoteDefault VALUES (0, 1, '', '');");
 			
 				var dbRawData = db.export();
 				db.close();
@@ -219,18 +227,56 @@ angular.module('flipnote', [ ])
 			}
 		});
 	}
+	
+	function importFromDatabase(pages, db) {
+		pages.length = 0;
+        var stmt = db.prepare("SELECT isCurrent, contentFront, contentBack FROM flipNoteDefault ORDER BY pageIndex");
+       	var seenCurrent = false;
+        for (var pageIndex = 0; stmt.step(); pageIndex++)
+        {
+        	var row = stmt.getAsObject();
+        	pages.push({ front: row.contentFront, back: row.contentBack });
+        	if (row.isCurrent)
+        	{
+        		if (seenCurrent) {
+		        	console.error("Multiple current pages set in the database (must be exactly one)");
+        		}
+        		currentPageIndex = pageIndex;
+        		seenCurrent = true;
+        	}
+        }
+        
+        if (pages.length == 0) {
+        	console.error("No pages in the database (must be at least one)");
+        }
+        if (!seenCurrent) {
+        	console.error("No current page set in the database (must be exactly one)");
+        }
+	}
 
     return {
-        syncDrive: function () {
+        syncDrive: function (callback) {
         	if (!db) {
 				loadOrCreateApplicationFolder().then(function(directory) {
 					loadOrCreateDatabase(directory).then(function(result) {
 						dbFile = result.file;
 						db = new SQL.Database(result.dbRawData);			
+						importFromDatabase(pages, db);
+
+						callback();
 					});
 				});
 			}
 			else {
+				db = new SQL.Database();
+				var sqlstr = "CREATE TABLE flipNoteDefault(pageIndex, isCurrent, contentFront, contentBack);";
+				db.exec(sqlstr);
+		        for (var pageIndex = 0; pageIndex < pages.length; pageIndex++)
+		        {
+		        	var stmt = db.prepare("INSERT INTO flipNoteDefault VALUES (?, ?, ?, ?)");
+					stmt.run([ pageIndex, pageIndex == currentPageIndex ? 1 : 0,
+						pages[pageIndex].front, pages[pageIndex].back ]);
+				}
 				var dbRawData = db.export();
 				var blob = new Blob([dbRawData], { type: "application/octet-stream" });
 				updateFile(blob, dbFile).then(function(file) {
