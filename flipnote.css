@@ -154,12 +154,31 @@ textarea {
     left:0px;
     bottom:0;
 }
+.record-selector-prev-index {
+    background: #4285f4;
+	position:absolute;
+    left:12vh;
+    bottom:0;
+	margin: 2.5vh 0;
+	font: 4vh monospace;
+	color:white;
+}
 .record-selector-next {
     background: #4285f4;
 	position:absolute;
     right:0px;
     bottom:0;
 }
+.record-selector-next-index {
+    background: #4285f4;
+	position:absolute;
+    right:12vh;
+    bottom:0;
+	margin: 2.5vh 0;
+	font: 4vh monospace;
+	color:white;
+}
+
 .record-selector-next svg {
 	-ms-transform: rotatey(-180deg);
 	-webkit-transform: rotatey(-180deg);

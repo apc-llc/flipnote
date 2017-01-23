@@ -25,11 +25,17 @@ $(".svg-container").mouseup(function()
 	}
 	else if ($(this).parents('.record-selector-prev').length)
 	{
-		currentPageIndex = max(0, currentPageIndex - 1);
+		currentPageIndex = Math.max(0, currentPageIndex - 1);
 	}	
 	else if ($(this).parents('.record-selector-next').length)
 	{
-		currentPageIndex = min(currentPageIndex + 1, pages.length - 1);
+		currentPageIndex = Math.min(currentPageIndex + 1, pages.length - 1);
+	}
+	else if ($(this).parents('.record-selector-add').length)
+	{
+		// Add new page
+		pages.splice(currentPageIndex + 1, 0, { front : '', back : '' });
+		currentPageIndex++;
 	}	
 
 	$(this).css("background-color", "#4285f4");
@@ -119,14 +125,29 @@ $('textarea').each(function () {
 	this.style.height = (this.scrollHeight) + 'px';
 });
 
+function loadIndices() {
+	var $curr = $(document).find('.record-selector-index');
+	var $prev = $(document).find('.record-selector-prev-index');
+	var $next = $(document).find('.record-selector-next-index');
+
+	$curr.text(currentPageIndex + 1);
+	$prev.text("");
+	$next.text("");
+
+	if (currentPageIndex > 0)
+		$prev.text(currentPageIndex);
+	if (currentPageIndex < pages.length - 1)
+		$next.text(currentPageIndex + 2);
+}
+
 function loadFrontPage() {
 	document.getElementById("input-front").value = pages[currentPageIndex].front;
-	$(document).find('.record-selector-index').text(currentPageIndex + 1);
+	loadIndices();
 }
 
 function loadBackPage() {
 	document.getElementById("input-back").value = pages[currentPageIndex].back;
-	$(document).find('.record-selector-index').text(currentPageIndex + 1);
+	loadIndices();
 }
 
 function saveFrontPage() {
