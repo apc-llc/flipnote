@@ -7,7 +7,35 @@ $(".svg-container").mousedown(function()
 
 $(".svg-container").mouseup(function()
 {
+	if ($(this).parents('.record-selector-close').length)
+	{
+		pages.splice(currentPageIndex, 1);
+		if (currentPageIndex == pages.length)
+			currentPageIndex--;
+
+		// If was the last record, insert empty record.
+		if (!pages.length)
+		{
+			pages.length = 0;
+			pages.push({ front : '', back : '' });
+			currentPageIndex = 0;
+		}
+
+		angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive();
+	}
+	else if ($(this).parents('.record-selector-prev').length)
+	{
+		currentPageIndex = max(0, currentPageIndex - 1);
+	}	
+	else if ($(this).parents('.record-selector-next').length)
+	{
+		currentPageIndex = min(currentPageIndex + 1, pages.length - 1);
+	}	
+
 	$(this).css("background-color", "#4285f4");
+	
+	loadFrontPage();
+	loadBackPage();
 });
 
 $('.svn-container').on('click', function(e)
@@ -90,6 +118,16 @@ $('textarea').each(function () {
 	this.style.height = 'auto';
 	this.style.height = (this.scrollHeight) + 'px';
 });
+
+function loadFrontPage() {
+	document.getElementById("input-front").value = pages[currentPageIndex].front;
+	$(document).find('.record-selector-index').text(currentPageIndex + 1);
+}
+
+function loadBackPage() {
+	document.getElementById("input-back").value = pages[currentPageIndex].back;
+	$(document).find('.record-selector-index').text(currentPageIndex + 1);
+}
 
 function saveFrontPage() {
 	pages[currentPageIndex].front = document.getElementById("input-front").value;

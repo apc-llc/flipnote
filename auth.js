@@ -54,8 +54,8 @@ var $page = new Audio('page.mp3');
  * Unlock the main UI screen.
  */
 function unlockUserMode() {
-	document.getElementById("input-front").value = pages[currentPageIndex].front;
-	document.getElementById("input-back").value = pages[currentPageIndex].back;
+	loadFrontPage();
+	loadBackPage();
 	$page.play();	
 	var item = document.getElementById("item");
 	item.className += " flipped";

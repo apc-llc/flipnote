@@ -42,13 +42,11 @@
 	background: -webkit-repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
 	background: repeating-linear-gradient(-45deg, #f8f8f8, #f8f8f8 10px, #fff 10px, #fff 20px);
 	color: white;
-	cursor: pointer;
 }
 .flip-login .item .back {
 	-webkit-transform: rotatey(180deg);
 	background-color: white;
 	color: black;
-	cursor: pointer;
 }
 .splash {
 	left:0;
