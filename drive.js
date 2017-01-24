@@ -13,11 +13,11 @@ angular.module('flipnote', [ ])
 	var delimiter = "\r\n--" + boundary + "\r\n";
 	var close_delim = "\r\n--" + boundary + "--";
 
-	function createFolder() {
+	function createFolder(folderName) {
 		return gapi.client.drive.files.insert(
 		{
 			'resource': {
-				"title": flipNoteFolderName,
+				"title": folderName,
 				"mimeType": "application/vnd.google-apps.folder"
 			}
 		});
@@ -30,7 +30,7 @@ angular.module('flipnote', [ ])
 			var directories = output.result.items;
 
 			if (!directories.length) {
-				return createFolder().then(function(output) {
+				return createFolder(folderName).then(function(output) {
 					return output.result;
 				});
 			}
