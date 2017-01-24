@@ -40,7 +40,6 @@
 	position:relative;
 }
 .search-menu {
-    overflow: hidden;
 	position:absolute;
 	left:10vh;
     top:0;
