@@ -134,6 +134,13 @@ body, html {
 	color: white;
 	text-align: center;
 }
+
+.logo-large.beta
+{
+	top:0;
+	left:1vh;
+	font: 5vh monospace;
+}
 .logo-large.white {
 	color: white;
 }
