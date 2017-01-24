@@ -7,41 +7,54 @@ $(".svg-container").mousedown(function()
 
 $(".svg-container").mouseup(function()
 {
-	if ($(this).parents('.record-selector-close').length)
-	{
-		pages.splice(currentPageIndex, 1);
-		if (currentPageIndex == pages.length)
-			currentPageIndex--;
-
-		// If was the last record, insert empty record.
-		if (!pages.length)
-		{
-			pages.length = 0;
-			pages.push({ front : '', back : '' });
-			currentPageIndex = 0;
-		}
-
-		angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive();
-	}
-	else if ($(this).parents('.record-selector-prev').length)
-	{
-		currentPageIndex = Math.max(0, currentPageIndex - 1);
-	}	
-	else if ($(this).parents('.record-selector-next').length)
-	{
-		currentPageIndex = Math.min(currentPageIndex + 1, pages.length - 1);
-	}
-	else if ($(this).parents('.record-selector-add').length)
-	{
-		// Add new page
-		pages.splice(currentPageIndex + 1, 0, { front : '', back : '' });
-		currentPageIndex++;
-	}	
-
 	$(this).css("background-color", "#4285f4");
-	
-	loadFrontPage();
-	loadBackPage();
+});
+
+$(".svg-container").click(function()
+{
+	var $this = $(this);
+
+	if ($(document).find('.flip').find('.item').hasClass('flipped'))
+	{
+		$page.play();
+		$(document).find('.flip').find('.item').removeClass('flipped');
+	}
+	$(document).find('.flip').find('.front').fadeOut(500, function() {	
+		if ($this.parents('.record-selector-close').length)
+		{
+			pages.splice(currentPageIndex, 1);
+			if (currentPageIndex == pages.length)
+				currentPageIndex--;
+
+			// If was the last record, insert empty record.
+			if (!pages.length)
+			{
+				pages.length = 0;
+				pages.push({ front : '', back : '' });
+				currentPageIndex = 0;
+			}
+
+			angular.injector(['ng', 'flipnote']).get('driveSync').syncDrive();
+		}
+		else if ($this.parents('.record-selector-prev').length)
+		{
+			currentPageIndex = Math.max(0, currentPageIndex - 1);
+		}	
+		else if ($this.parents('.record-selector-next').length)
+		{
+			currentPageIndex = Math.min(currentPageIndex + 1, pages.length - 1);
+		}
+		else if ($this.parents('.record-selector-add').length)
+		{
+			// Add new page
+			pages.splice(currentPageIndex + 1, 0, { front : '', back : '' });
+			currentPageIndex++;
+		}	
+
+		loadIndices();
+		loadFrontPage();
+		loadBackPage();
+	}).fadeIn(500);
 });
 
 $('.svn-container').on('click', function(e)
@@ -142,12 +155,10 @@ function loadIndices() {
 
 function loadFrontPage() {
 	document.getElementById("input-front").value = pages[currentPageIndex].front;
-	loadIndices();
 }
 
 function loadBackPage() {
 	document.getElementById("input-back").value = pages[currentPageIndex].back;
-	loadIndices();
 }
 
 function saveFrontPage() {

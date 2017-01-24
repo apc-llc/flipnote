@@ -54,6 +54,7 @@ var $page = new Audio('page.mp3');
  * Unlock the main UI screen.
  */
 function unlockUserMode() {
+	loadIndices();
 	loadFrontPage();
 	loadBackPage();
 	$page.play();	
