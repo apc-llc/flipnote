@@ -57,6 +57,12 @@ function unlockUserMode() {
 	loadIndices();
 	loadFrontPage();
 	loadBackPage();
+
+	// Enforce textareas to redraw, otherwise they will use
+	// old text height setting.
+	$('.input-front').trigger('change');
+	$('.input-back').trigger('change');
+
 	$page.play();	
 	var item = document.getElementById("item");
 	item.className += " flipped";

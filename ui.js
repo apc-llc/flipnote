@@ -54,6 +54,11 @@ $(".svg-container").click(function()
 		loadIndices();
 		loadFrontPage();
 		loadBackPage();
+
+		// Enforce textareas to redraw, otherwise they will use
+		// old text height setting.
+		$('.input-front').hide().trigger('change').show();
+		$('.input-back').hide().trigger('change').show();
 	}).fadeIn(500);
 });
 
@@ -131,12 +136,12 @@ $('.flip').swiperight(function ()
 	}
 });
 
-$('textarea').each(function () {
+/*$('textarea').each(function () {
 	this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
 }).on('input', function () {
 	this.style.height = 'auto';
 	this.style.height = (this.scrollHeight) + 'px';
-});
+});*/
 
 function loadIndices() {
 	var $curr = $(document).find('.record-selector-index');
