@@ -178,12 +178,6 @@ textarea {
 	font: 4vh monospace;
 	color:white;
 }
-
-.record-selector-next svg {
-	-ms-transform: rotatey(-180deg);
-	-webkit-transform: rotatey(-180deg);
-	transform: rotatey(-180deg);
-}
 .record-selector-center {
     background: #4285f4;
     height: 10vh;

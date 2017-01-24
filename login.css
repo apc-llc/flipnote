@@ -16,7 +16,9 @@
 	position:absolute; 
 }
 .flip-login .item.flipped {
+	-ms-transform: rotatey(180deg);
 	-webkit-transform: rotatey(-180deg);
+	transform: rotatey(-180deg);
 }
 .flip-login .item {
 	width: 100%;
@@ -44,7 +46,9 @@
 	color: white;
 }
 .flip-login .item .back {
+	-ms-transform: rotatey(180deg);
 	-webkit-transform: rotatey(180deg);
+	transform: rotatey(180deg);
 	background-color: white;
 	color: black;
 }
